@@ -1,27 +1,22 @@
 package com.spring.docon.model;
 
+import com.spring.docon.model.base.Base;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-<<<<<<< HEAD
-=======
-import lombok.Getter;
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
 import java.sql.Date;
-<<<<<<< HEAD
-=======
-import java.text.SimpleDateFormat;
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 
 @Data
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegister {
+@Validated
+public class UserRegister extends Base {
 
     @NotBlank(message = "Prefix should not be empty or null")
     private String prefix;
@@ -45,5 +40,5 @@ public class UserRegister {
     @NotBlank(message = "Role should not be empty or null.")
     private String role;
 
-    private Account account =new Account();
+    private Account account = new Account();
 }

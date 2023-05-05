@@ -55,29 +55,24 @@ class EnrollmentServiceTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        log.info("Before each method called.");
         enrollmentMapper = Mappers.getMapper(EnrollmentMapper.class);
         ReflectionTestUtils.setField(sut, "enrollmentMapper", enrollmentMapper);
-
         enrollmentId = UUID.randomUUID();
     }
 
     @Test
     void shouldCreateEnrollmentId() {
-        log.info("Inside the shouldCreateEnrollmentId()");
+
         enrollmentEntity = MockUtils.enrollmentEntity();
         Long patientId = enrollmentEntity.getPatientEntity().getPatientId();
 
         Mockito.when(patientRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(enrollmentEntity.getPatientEntity()));
 
         Mockito.when(enrollmentRepository.save(any(EnrollmentEntity.class))).thenReturn(enrollmentEntity);
-        log.info("Stubbing - Patient repository method called and enrollment Entity returned");
 
         enrollmentResponse = sut.createEnrollment(patientId, enrollment);
-        log.info("Add patient method called of sut");
 
         Mockito.verify(enrollmentRepository, Mockito.atLeastOnce()).save(any());
-        log.info("Verifying if enrollment repository method called at least once");
 
         assertNotNull(enrollmentResponse);
         assertEquals("80a90253-b6bb-419b-bb95-ae7f54851a34", enrollmentEntity.getEnrollmentId().toString());
@@ -87,19 +82,15 @@ class EnrollmentServiceTest {
 
     @Test
     void shouldReturnEnrollmentId() {
-        log.info("Inside the shouldReturnEnrollmentId()");
 
-        log.info("Retrieving enrollment id");
         enrollmentEntity.setEnrollmentId(enrollmentId);
+
         Mockito.when(enrollmentRepository.findByUUID(any(UUID.class))).thenReturn(enrollmentEntity);
-        log.info("Enrollment id found");
 
         enrollmentResponse=sut.getEnrollment(enrollmentId);
-        log.info("Setting up enrollment response.");
 
         assertNotNull(enrollmentResponse);
+
         assertEquals(enrollmentId, enrollmentResponse.getEnrollmentID());
     }
-
-
 }

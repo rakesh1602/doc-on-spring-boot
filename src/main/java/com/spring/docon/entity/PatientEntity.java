@@ -1,5 +1,6 @@
 package com.spring.docon.entity;
 
+import com.spring.docon.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "patient")
-public class PatientEntity {
+public class PatientEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -35,6 +36,9 @@ public class PatientEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserRegisterEntity userRegisterEntity;
+
+    public PatientEntity(long l, String s, int i, int i1, UserRegisterEntity userRegisterEntity) {
+    }
 }
 
 

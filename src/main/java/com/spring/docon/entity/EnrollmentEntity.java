@@ -1,5 +1,6 @@
 package com.spring.docon.entity;
 
+import com.spring.docon.entity.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @ToString
 @Entity
 @Table(name = "enrollment")
-public class EnrollmentEntity {
+public class EnrollmentEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "uuid2")

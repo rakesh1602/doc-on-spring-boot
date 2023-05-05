@@ -10,6 +10,4 @@ import java.util.UUID;
 public interface EnrollmentMapper {
 
     EnrollmentEntity modelToEntity(Enrollment enrollment);
-
-    Enrollment entityToModel(EnrollmentEntity enrollmentEntity);
 }

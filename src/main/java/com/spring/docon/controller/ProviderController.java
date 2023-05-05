@@ -50,7 +50,7 @@ public class ProviderController {
     @ApiResponse(responseCode = "400", description = "Invalid request")
     @ApiResponse(responseCode = "404", description = "Not found")
     @ApiResponse(responseCode = "500", description = "System error")
-    @GetMapping(value = "/providers/{providerId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/providers/{providerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Provider> getById(@PathVariable Long providerId) {
 
         Provider provider = providerService.getById(providerId);
@@ -62,7 +62,7 @@ public class ProviderController {
     @ApiResponse(responseCode = "400", description = "Invalid request")
     @ApiResponse(responseCode = "404", description = "Not found")
     @ApiResponse(responseCode = "500", description = "System error")
-    @GetMapping(value = "/providers", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/providers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Provider>> getAllProvider() {
 
         List<Provider> provider = providerService.getAllprovider();

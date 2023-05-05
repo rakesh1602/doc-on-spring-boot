@@ -8,6 +8,7 @@ import com.spring.docon.model.patch.Password;
 import com.spring.docon.repository.AccountRepository;
 import com.spring.docon.repository.EnrollmentRepository;
 import com.spring.docon.response.AccountResponse;
+import com.spring.docon.response.AccountValidateResponse;
 import com.spring.docon.response.PasswordResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class AccountService {
     private final AccountEntity accountEntity = new AccountEntity();
 
     private final PasswordResponse passwordResponse = new PasswordResponse();
+
+    private final AccountValidateResponse accountValidateResponse = new AccountValidateResponse();
 
     @Autowired
     public AccountService(AccountRepository accountRepository, EnrollmentRepository enrollmentRepository, AccountMapper accountMapper) {
@@ -59,6 +62,7 @@ public class AccountService {
             throw new RuntimeException("Email id or password does not valid.");
         }
         passwordResponse.setMessage("Your password has been created successfully!");
+
         return passwordResponse;
     }
 
@@ -75,5 +79,23 @@ public class AccountService {
         log.info("Response id : {}", accountEntity.getAccountId());
 
         return accountResponse;
+    }
+
+    public AccountValidateResponse passwordValidate(Account account) {
+
+        Optional<AccountEntity> optionalAccountEntity = Optional.ofNullable(accountRepository.findByEmailId(account.getEmailId()).orElseThrow(() -> new RuntimeException("email id is not valid")));
+
+        String email = optionalAccountEntity.get().getEmailId();
+        String decodedPassword = new String(Base64.getDecoder().decode(optionalAccountEntity.get().getPassword()));
+
+        if (email.equals(account.getEmailId()) && decodedPassword.equals(account.getPassword())) {
+            accountValidateResponse.setMessage("Your login successfully!");
+            accountValidateResponse.setId(optionalAccountEntity.get().getAccountId());
+        } else {
+            accountValidateResponse.setMessage("Email id or Password are not valid.");
+            throw new RuntimeException("Email id or Password does not valid.");
+        }
+
+        return accountValidateResponse;
     }
 }

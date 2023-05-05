@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientResponse {
+
     private Long patientId;
 
+    private Long AccountId;
 }

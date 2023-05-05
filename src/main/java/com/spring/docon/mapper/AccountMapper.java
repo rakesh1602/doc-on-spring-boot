@@ -10,5 +10,4 @@ public interface AccountMapper {
     AccountEntity modelToEntity(Account account);
 
     Account entityToModel(AccountEntity accountEntity);
-
 }

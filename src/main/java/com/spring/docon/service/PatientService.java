@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 @Log4j2
 public class PatientService {
+
     private final PatientRepository patientRepository;
 
     private final PatientMapper patientMapper;
@@ -26,7 +27,7 @@ public class PatientService {
 
     private final Enrollment enrollment = new Enrollment();
 
-    private PatientEntity patientEntity;
+    private PatientEntity patientEntity = new PatientEntity();
 
     @Autowired
     public PatientService(PatientRepository patientRepository, PatientMapper patientMapper, EnrollmentService enrollmentService) {
@@ -48,7 +49,9 @@ public class PatientService {
 
         PatientResponse patientResponse = new PatientResponse();
         patientResponse.setPatientId(patientEntity.getPatientId());
-        log.info("Response id : {}", patientResponse.getPatientId());
+        patientResponse.setAccountId(patientEntity.getUserRegisterEntity().getAccountEntity().getAccountId());
+        log.info("Patient id : {}", patientResponse.getPatientId());
+        log.info("Account id : {}", patientResponse.getAccountId());
 
         return patientResponse;
     }
@@ -59,7 +62,7 @@ public class PatientService {
 
         List<PatientEntity> personEntity = patientRepository.findAll();
 
-        if(!personEntity.isEmpty()) {
+        if (!personEntity.isEmpty()) {
             List<Patient> patientRequest = patientMapper.entityToModels(personEntity);
             return patientRequest;
         } else {
@@ -69,7 +72,7 @@ public class PatientService {
 
     public Patient getPatient(Long patientId) {
 
-        log.info("Retrieving patient details for patient id {} ",patientId);
+        log.info("Retrieving patient details for patient id {} ", patientId);
 
         Optional<PatientEntity> optionalPatientEntity = Optional.ofNullable(patientRepository.findById(patientId)
                 .orElseThrow(() -> new RuntimeException("Patient id not found {}" + patientId)));
@@ -80,29 +83,29 @@ public class PatientService {
 
     public void deletePatient(Long patientId) {
 
-        log.info("Retrieving patient details for patient id {} ",patientId);
+        log.info("Retrieving patient details for patient id {} ", patientId);
 
         patientRepository.findByPatientIdAndDeleteFalse(patientId);
     }
 
     public Patient updatePatient(Long patientId, Patient patient) {
 
-        log.info("Retrieving patient details for patient id {} ",patientId);
+        log.info("Retrieving patient details for patient id {} ", patientId);
 
-       Optional<PatientEntity> oldPatientEntity = Optional.ofNullable(patientRepository.findById(patientId)
-               .orElseThrow(() -> new RuntimeException("Patient id not found {}" + patientId)));
+        Optional<PatientEntity> oldPatientEntity = Optional.ofNullable(patientRepository.findById(patientId)
+                .orElseThrow(() -> new RuntimeException("Patient id not found {}" + patientId)));
 
         UserRegisterEntity userRegisterEntity = oldPatientEntity.get().getUserRegisterEntity();
         Long userId = userRegisterEntity.getUserId();
-        AccountEntity accountEntity = oldPatientEntity.get().getUserRegisterEntity().getAccount();
+        AccountEntity accountEntity = oldPatientEntity.get().getUserRegisterEntity().getAccountEntity();
         Long accountId = accountEntity.getAccountId();
 
         PatientEntity newPatientEntity = patientMapper.modelToEntity(patient);
         newPatientEntity.setPatientId(patientId);
         newPatientEntity.getUserRegisterEntity().setUserId(userId);
-        newPatientEntity.getUserRegisterEntity().getAccount().setAccountId(accountId);
+        newPatientEntity.getUserRegisterEntity().getAccountEntity().setAccountId(accountId);
 
-        patientEntity= patientRepository.save(newPatientEntity);
+        patientEntity = patientRepository.save(newPatientEntity);
         log.info("Patient details updated successfully.");
 
         return patientMapper.entityToModel(Optional.of(newPatientEntity));

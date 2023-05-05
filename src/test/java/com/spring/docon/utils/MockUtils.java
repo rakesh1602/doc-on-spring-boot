@@ -1,23 +1,21 @@
 package com.spring.docon.utils;
 
 import com.spring.docon.entity.AccountEntity;
-<<<<<<< HEAD
 import com.spring.docon.entity.EnrollmentEntity;
 import com.spring.docon.entity.GenderEntity;
 import com.spring.docon.entity.PatientEntity;
 import com.spring.docon.entity.PrefixEntity;
+import com.spring.docon.entity.ProviderEntity;
 import com.spring.docon.entity.UserRegisterEntity;
+import com.spring.docon.model.Patient;
+import com.spring.docon.model.Provider;
+import com.spring.docon.response.PatientResponse;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-=======
-import com.spring.docon.entity.PatientEntity;
-import com.spring.docon.entity.UserRegisterEntity;
-
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 public class MockUtils {
 
     public static PatientEntity patientEntity(){
@@ -34,7 +32,6 @@ public class MockUtils {
         patientEntity.getUserRegisterEntity().setAccountEntity(accountEntity);
         return patientEntity;
     }
-<<<<<<< HEAD
 
     public static EnrollmentEntity enrollmentEntity(){
         PatientEntity patientEntity=new PatientEntity();
@@ -48,7 +45,6 @@ public class MockUtils {
         return enrollmentEntity;
     }
 
-
     public static List<GenderEntity> genderEntity(){
         GenderEntity genderEntity=new GenderEntity();
         genderEntity.setGender("Male");
@@ -61,6 +57,33 @@ public class MockUtils {
         return Collections.singletonList(prefixEntity);
     }
 
-=======
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
+    public static Patient patient(){
+        Patient patient = new Patient();
+        patient.getPerson().setFirstName("Rakesh");
+        patient.getPerson().getAccount().setEmailId("rk@example.com");
+        patient.getPerson().setPhoneNumber("1234567890");
+
+        PatientResponse patientResponse = new PatientResponse();
+        patientResponse.setPatientId(1L);
+        return patient;
+    }
+
+    public static Provider provider() {
+        Provider provider = new Provider();
+        provider.setExperience("1 Year");
+        provider.setMciRegistrationNumber("1234");
+        return provider;
+    }
+
+    public static  ProviderEntity providerEntity(){
+        ProviderEntity providerEntity = new ProviderEntity();
+        Provider provider=new Provider();
+
+        providerEntity.setProviderId(1L);
+        providerEntity.setMciRegistrationNumber(provider.getMciRegistrationNumber());
+        providerEntity.setExperience(provider.getExperience());
+
+        return providerEntity;
+
+    }
 }

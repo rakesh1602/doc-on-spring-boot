@@ -33,14 +33,12 @@ class GenderServiceTest {
 
     private List<GenderEntity> genderEntity= Collections.singletonList(new GenderEntity());
 
-
     @BeforeEach
     void setUp() throws IOException{
         log.info("Inside before each method");
 
         gender.setGender("Male");
     }
-
 
     @Test
     void getGender() {

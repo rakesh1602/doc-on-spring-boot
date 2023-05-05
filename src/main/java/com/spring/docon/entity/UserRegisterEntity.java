@@ -1,6 +1,6 @@
 package com.spring.docon.entity;
 
-
+import com.spring.docon.entity.base.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,10 +16,6 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
-<<<<<<< HEAD
-=======
-import java.text.SimpleDateFormat;
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 
 @Data
 @AllArgsConstructor
@@ -27,7 +23,7 @@ import java.text.SimpleDateFormat;
 @ToString
 @Entity
 @Table(name = "users")
-public class UserRegisterEntity {
+public class UserRegisterEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -57,16 +53,11 @@ public class UserRegisterEntity {
     private String role;
 
     private Boolean deleted = Boolean.FALSE;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-<<<<<<< HEAD
     private AccountEntity accountEntity;
 
-    public UserRegisterEntity(long userId, String mr, String rakesh, String chavan, String s, int phoneNumber, String male, String admin, AccountEntity accountEntity) {
+    public UserRegisterEntity(long l, String mr, String rakesh, String chavan, String s, int i, String male, String admin, AccountEntity accountEntity) {
     }
-=======
-    private AccountEntity account;
->>>>>>> f62aa9d4d01904d6d20b8362e2e2151384f69f11
 }

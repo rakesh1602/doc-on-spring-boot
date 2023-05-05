@@ -52,11 +52,7 @@ class PatientServiceTest {
     @Mock
     private EnrollmentService enrollmentService;
 
-<<<<<<< HEAD
     private Patient patient=new Patient();
-=======
-    private Patient patient;
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 
     private UserRegister userRegister=new UserRegister();
 
@@ -86,26 +82,16 @@ class PatientServiceTest {
     @Test
     @DisplayName("Should add patient successfully")
     void shouldAddPatientSuccessfully() {
-        log.info("Inside the shouldAddPatientSuccessfully()");
         patientEntity= MockUtils.patientEntity();
 
         Mockito.when(patientRepository.save(Mockito.any(PatientEntity.class))).thenReturn(patientEntity);
-        log.info("Stubbing - Patient repository method called and patientEntity returned");
 
-<<<<<<< HEAD
         patientResponse=sut.addPatient(patient);
-=======
-        patientResponse=sut.addPatient(patientFromJsonFile);
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
-        log.info("Add patient method called of sut");
 
         Mockito.verify(patientRepository,Mockito.atLeastOnce()).save(Mockito.any());
-        log.info("Verifying if patient repository method called at least once ");
 
         assertNotNull(patientResponse);
         assertEquals("rajesh", patientEntity.getUserRegisterEntity().getFirstName());
     }
-
-
 }
 

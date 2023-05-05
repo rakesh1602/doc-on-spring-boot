@@ -13,9 +13,4 @@ public interface EnrollmentRepository extends JpaRepository<EnrollmentEntity, UU
 
     @Query("SELECT e FROM EnrollmentEntity e WHERE e.enrollmentId = ?1")
     EnrollmentEntity findByUUID(UUID enrollmentId);
-<<<<<<< HEAD
-=======
-
-
->>>>>>> f5e8be4199568b1c8165cf53086ebe5c43b8cd83
 }

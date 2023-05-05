@@ -28,10 +28,9 @@ class PrefixServiceTest {
 
     private List<PrefixEntity> prefixEntity= Collections.singletonList(new PrefixEntity());
 
-
     @Test
     void getPrefix() {
-        log.info("Inside getPrefix()");
+
         prefixEntity= MockUtils.prefixEntities();
 
         Mockito.when(prefixRepository.findAll()).thenReturn(prefixEntity);
@@ -40,7 +39,5 @@ class PrefixServiceTest {
 
         Mockito.verify(prefixRepository,Mockito.times(1)).findAll();
         assertEquals(prefixEntity,result);
-
-
     }
 }

@@ -68,25 +68,31 @@ public class PatientController {
     @ApiResponse(responseCode = "500", description = "System error")
     @PutMapping(value = "/patients/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Patient> updatePatient(@PathVariable Long patientId, @RequestBody Patient patient) {
+
         Patient patient1 = patientService.updatePatient(patientId, patient);
 
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Invalid request")
+    @ApiResponse(responseCode = "404", description = "Not found")
+    @ApiResponse(responseCode = "500", description = "System error")
     @GetMapping(path = "/patients/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Patient> getPatient(@PathVariable Long patientId) {
+
         Patient patient = patientService.getPatient(patientId);
+
         return new ResponseEntity<>(patient, HttpStatus.OK);
     }
 
-    @GetMapping(path = "patients/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Patient> searchPatient(@PathVariable Long patientId) {
-        Patient patient = patientService.getPatient(patientId);
-        return new ResponseEntity<>(patient, HttpStatus.OK);
-    }
-
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Invalid request")
+    @ApiResponse(responseCode = "404", description = "Not found")
+    @ApiResponse(responseCode = "500", description = "System error")
     @DeleteMapping(path = "patients/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void deleteById(@PathVariable Long patientId) {
+
         patientService.deletePatient(patientId);
     }
 

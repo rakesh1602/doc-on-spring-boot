@@ -44,6 +44,10 @@ public class EnrollmentController {
         return new ResponseEntity<>(enrollmentResponse, HttpStatus.OK);
     }
 
+    @ApiResponse(responseCode = "200", description = "Success")
+    @ApiResponse(responseCode = "400", description = "Invalid request")
+    @ApiResponse(responseCode = "404", description = "Not found")
+    @ApiResponse(responseCode = "500", description = "System error")
     @GetMapping(path = "enrollments/{enrollmentId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<EnrollmentResponse> getEnrollment(@PathVariable UUID enrollmentId){
 

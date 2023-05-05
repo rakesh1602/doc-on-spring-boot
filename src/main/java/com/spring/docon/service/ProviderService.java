@@ -1,6 +1,5 @@
 package com.spring.docon.service;
 
-
 import com.spring.docon.entity.AccountEntity;
 import com.spring.docon.entity.ProviderEntity;
 import com.spring.docon.entity.UserRegisterEntity;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Log4j2
 @Service
 public class ProviderService {
@@ -25,8 +23,6 @@ public class ProviderService {
     private final ProviderMapper providerMapper;
 
     private Provider provider;
-
-    private ProviderEntity providerEntity;
 
     @Autowired
     public ProviderService(ProviderRepository providerRepository, ProviderMapper providerMapper) {
@@ -49,7 +45,6 @@ public class ProviderService {
         log.info("Response id : {}", providerResponse.getProviderId());
         return providerResponse;
     }
-
 
     public Provider getById(Long providerId) {
 
@@ -87,7 +82,6 @@ public class ProviderService {
         log.info("deleted successfully");
     }
 
-
     public Provider updateProviders(Long providerId, Provider provider) {
 
         log.info("Retrieving patient details for patient id {} ", providerId);
@@ -97,15 +91,14 @@ public class ProviderService {
 
         UserRegisterEntity userRegisterEntity = oldProviderEntity.get().getUser();
         Long userId = userRegisterEntity.getUserId();
-        AccountEntity accountEntity = oldProviderEntity.get().getUser().getAccount();
+        AccountEntity accountEntity = oldProviderEntity.get().getUser().getAccountEntity();
         Long accountId = accountEntity.getAccountId();
 
         ProviderEntity newProviderEntity = providerMapper.modelToEntity(provider);
-        newProviderEntity.setProviderId(providerId);
         newProviderEntity.getUser().setUserId(userId);
-        newProviderEntity.getUser().getAccount().setAccountId(accountId);
+        newProviderEntity.getUser().getAccountEntity().setAccountId(accountId);
 
-        providerEntity = providerRepository.save(newProviderEntity);
+        providerRepository.save(newProviderEntity);
 
         return providerMapper.entityToModel(newProviderEntity);
     }

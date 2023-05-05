@@ -1,5 +1,6 @@
 package com.spring.docon.entity;
 
+import com.spring.docon.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "account")
-public class AccountEntity {
+public class AccountEntity extends BaseEntity {
 
     @Id
     @Column(name = "account_id")
